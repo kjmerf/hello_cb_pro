@@ -48,11 +48,3 @@ if __name__ == "__main__":
         balance = account["balance"]
         currency = account["currency"]
         logging.info(f"Your current {currency} balance is: {balance}.")
-
-    logging.info("Making an unauthenticated call to the Coinbase Pro API...")
-    currencies = requests.get(url + "/currencies").json()
-    for currency in currencies:
-        id = currency["id"]
-        min_size = currency["min_size"]
-        status = currency["status"]
-        logging.info(f"{id} has a minimum size of {min_size} and a status of {status}.")

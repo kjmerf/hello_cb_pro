@@ -13,7 +13,7 @@ Then create an API key associated with the account and set the following environ
 ## Running locally
 
 Once the setup is complete, simply run ```/up.sh``` to start the container.
-The container makes an authenticated and an unauthenticated call to the Sandbox API.
+The container makes an authenticated call to the Sandbox API.
 
 ## Next steps
 
