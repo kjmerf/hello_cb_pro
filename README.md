@@ -17,5 +17,5 @@ The container makes an authenticated call to the Sandbox API.
 
 ## Next steps
 
-In addiion to the REST API, we also need to be able to subscribe to the websocket feed: wss://ws-feed-public.sandbox.pro.coinbase.com.
+In addition to accessing the REST API, we also need to be able to subscribe to the websocket feed: wss://ws-feed-public.sandbox.pro.coinbase.com.
 The feed provides real-time market data updates for orders and trades.
