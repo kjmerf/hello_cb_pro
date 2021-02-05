@@ -2,6 +2,7 @@
 
 This purpose of this repo is to explore the Coinbase Pro Sandbox API.
 The Sandbox API mimics the production one.
+Before getting started check out: https://docs.pro.coinbase.com.
 
 ## Setup
 
@@ -13,3 +14,8 @@ Then create an API key associated with the account and set the following environ
 
 Once the setup is complete, simply run ```/up.sh``` to start the container.
 The container makes an authenticated and an unauthenticated call to the Sandbox API.
+
+## Next steps
+
+In addiion to the REST API, we also need to be able to subscribe to the websocket feed: wss://ws-feed-public.sandbox.pro.coinbase.com.
+The feed provides real-time market data updates for orders and trades.

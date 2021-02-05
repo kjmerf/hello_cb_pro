@@ -10,8 +10,6 @@ from requests.auth import AuthBase
 
 logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.INFO)
 
-# https://docs.pro.coinbase.com
-
 
 class CoinbaseExchangeAuth(AuthBase):
     def __init__(self, api_key, api_secret, passphrase):
