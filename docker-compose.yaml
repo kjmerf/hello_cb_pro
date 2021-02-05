@@ -1,0 +1,12 @@
+version: '3'
+services:
+  cb:
+    build: ./src
+    environment:
+      - CB_API_KEY
+      - CB_API_SECRET
+      - CB_PASSPHRASE
+      - CB_URL=https://api-public.sandbox.pro.coinbase.com
+    command:
+      - python
+      - /app/app.py
