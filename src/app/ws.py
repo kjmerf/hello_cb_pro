@@ -4,6 +4,8 @@ import os
 
 import websocket
 
+# https://docs.pro.coinbase.com/#websocket-feed
+
 
 def on_message(ws, message):
     pprint(message)
