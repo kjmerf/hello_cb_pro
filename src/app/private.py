@@ -1,9 +1,14 @@
+from pprint import pprint
 import base64
 import hashlib
 import hmac
+import os
 import time
 
 from requests.auth import AuthBase
+import requests
+
+# https://docs.pro.coinbase.com/#private
 
 
 class CoinbaseExchangeAuth(AuthBase):
@@ -34,3 +39,16 @@ class CoinbaseExchangeAuth(AuthBase):
             }
         )
         return request
+
+
+if __name__ == "__main__":
+
+    api_key = os.getenv("CB_API_KEY")
+    api_secret = os.getenv("CB_API_SECRET")
+    passphrase = os.getenv("CB_PASSPHRASE")
+    rest_url = os.getenv("CB_REST_URL")
+    request_suffix = os.getenv("REQUEST_SUFFIX")
+
+    auth = CoinbaseExchangeAuth(api_key, api_secret, passphrase)
+    accounts = requests.get(f"{rest_url}/{request_suffix}", auth=auth)
+    pprint(accounts.json())
