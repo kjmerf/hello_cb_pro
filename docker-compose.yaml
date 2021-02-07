@@ -6,7 +6,10 @@ services:
       - CB_API_KEY
       - CB_API_SECRET
       - CB_PASSPHRASE
-      - CB_URL=https://api-public.sandbox.pro.coinbase.com
+      - CB_REST_URL=https://api-public.sandbox.pro.coinbase.com
+      - CB_WEBSOCKET_URL=wss://ws-feed-public.sandbox.pro.coinbase.com
+      - CHANNEL=ticker
+      - PRODUCT_ID=BTC-USD
     command:
       - python
-      - /app/app.py
+      - /app/main.py
