@@ -41,7 +41,7 @@ If you want to download historical data into a local file, you can use the ```ge
 # install the requirements in a virtual environment
 pip install -r scripts/get_data_requirements.txt
 # run the script
-python scripts/get_data.py --lookback 200 --granularity 60 --product_id BTC-USD --output_file /tmp/cb_pro.json
+python scripts/get_data.py --lookback 200 --granularity 3600 --product_id BTC-USD --output_file /tmp/cb_pro.json
 ```
 
 With those arguments, you'll get 200 days worth of data at the hourly level, for the BTC-USD product.
