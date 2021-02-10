@@ -49,7 +49,7 @@ The data will be written to ```tmp/cb_pro.json```.
 You can adjust the arguments as needed.
 
 The data will be written as newline delimited JSON.
-To read it into a dataframe, you can use:
+To read the file into a dataframe, you can use:
 ```python
 >>> import pandas as pd
 >>> df = pd.read_json("/tmp/cb_pro.json", lines=True)
