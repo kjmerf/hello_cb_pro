@@ -48,7 +48,7 @@ With those arguments, you'll get 200 days worth of data at the hourly level, for
 The data will be written to ```tmp/cb_pro.json```.
 You can adjust the arguments as needed.
 
-The data will be written to the local file as new-line delimited json.
+The data will be written as newline delimited JSON.
 To read it into a dataframe, you can use:
 ```python
 >>> import pandas as pd
