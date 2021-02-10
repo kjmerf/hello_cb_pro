@@ -13,7 +13,7 @@ The ws service makes an unathenticated connection to the Sandbox Websocket to su
 
 ## Setup
 
-To use the private service, you first need to create an account here: https://public.sandbox.pro.coinbase.com. If you have a real Coinbase account, it should automatically link to that, but none of your real assets will be loaded. 
+To use the private service, you first need to create an account here: https://public.sandbox.pro.coinbase.com. If you have a real Coinbase account, it should automatically link to that, but none of your real assets will be loaded.
 Then create an API key associated with the account and set the following environment variables accordingly:
 ```CB_API_KEY```, ```CB_API_SECRET``` and ```CB_PASSPHRASE```.
 
@@ -35,7 +35,7 @@ docker-compose run ws
 
 ## Getting data
 
-If you want to download historical rates into a local file, you can use the ```get_data.py``` script.
+If you want to download historical data into a local file, you can use the ```get_data.py``` script.
 
 ```shell
 # install the requirements in a virtual environment
