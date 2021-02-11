@@ -4,7 +4,7 @@ services:
     build: ./src
     environment:
       - SLACK_BOT_TOKEN
-      - SLACK_CHANNEL=U01LVA1196K
+      - SLACK_CHANNEL
       - CB_REST_URL=https://api.pro.coinbase.com
       - PRODUCT_ID=BTC-USD
       - SLEEP_SECONDS=5
