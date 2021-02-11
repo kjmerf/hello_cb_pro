@@ -6,7 +6,7 @@ Before getting started check out: https://docs.pro.coinbase.com.
 
 # Overview
 
-There are there services that can be run: private, public, and ws (websocket).
+There are three services that can be run: private, public, and ws (websocket).
 The private service makes an authenticated call to the Sandbox API to retreive account information.
 The public service makes an unathenticated call to the Sandbox API to get historical price data.
 The ws service makes an unathenticated connection to the Sandbox Websocket to subscribe to real-time market data.
