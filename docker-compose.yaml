@@ -7,7 +7,6 @@ services:
       - SLACK_CHANNEL
       - CB_REST_URL=https://api.pro.coinbase.com
       - PRODUCT_ID=BTC-USD
-      - SLEEP_SECONDS=5
     command:
       - python
       - /app/bot.py
