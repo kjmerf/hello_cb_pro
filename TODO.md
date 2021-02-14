@@ -5,3 +5,5 @@
 
 Need-to-implements:
   - Unique order IDs
+  - Object model (different types of orders, etc.)
+  - ...
