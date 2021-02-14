@@ -1,7 +1,7 @@
 version: '3'
 services:
   bot:
-    build: ./src
+    build: ./cbt
     environment:
       - SLACK_BOT_TOKEN
       - SLACK_CHANNEL
@@ -11,7 +11,7 @@ services:
       - python
       - /app/bot.py
   private:
-    build: ./src
+    build: ./cbt
     environment:
       - CB_API_KEY
       - CB_API_SECRET
@@ -22,7 +22,7 @@ services:
       - python
       - /app/private.py
   public:
-    build: ./src
+    build: ./cbt
     environment:
       - CB_REST_URL=https://api-public.sandbox.pro.coinbase.com
       - LOOKBACK=200
@@ -32,7 +32,7 @@ services:
       - python
       - /app/public.py
   ws:
-    build: ./src
+    build: ./cbt
     environment:
       - CB_WEBSOCKET_URL=wss://ws-feed-public.sandbox.pro.coinbase.com
       - CHANNEL=ticker

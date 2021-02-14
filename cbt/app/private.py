@@ -19,11 +19,8 @@ class CoinbaseExchangeAuth(AuthBase):
 
     def __call__(self, request):
         timestamp = str(time.time())
-        message = (
-            timestamp
-            + request.method
-            + request.path_url
-            + (request.body or b"").decode()
+        message = "".join(
+            [timestamp, request.method, request.path_url, (request.body or b"")]
         )
         hmac_key = base64.b64decode(self.api_secret)
         signature = hmac.new(hmac_key, message.encode(), hashlib.sha256)

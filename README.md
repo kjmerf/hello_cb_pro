@@ -39,9 +39,9 @@ If you want to download historical data into a local file, you can use the ```ge
 
 ```shell
 # install the requirements in a virtual environment
-pip install -r scripts/get_data_requirements.txt
+pip install -r requirements.txt
 # run the script
-python scripts/get_data.py --lookback 200 --granularity 3600 --product_id BTC-USD --output_file /tmp/cb_pro.json
+python -m cbt.scripts.get_data --lookback 200 --granularity 3600 --product_id BTC-USD --output_file /tmp/cb_pro.json
 ```
 
 With those arguments, you'll get 200 days worth of data at the hourly level, for the BTC-USD product.
@@ -54,6 +54,17 @@ To read the file into a dataframe, you can use:
 import pandas as pd
 df = pd.read_json("/tmp/cb_pro.json", lines=True)
 ```
+
+## Buying (fake) BTC
+
+To see if you can translate your fake USD to fake BTC from the command line, try the `buy_btc` script. **Note**: Make sure your .env file has the following value set: `CB_REST_URL=https://api-public.sandbox.pro.coinbase.com`
+```shell
+# install the requirements in a virtual environment
+pip install -r requirements.txt
+# run the script
+python -m cbt.scripts.buy_btc --usd=100
+```
+This will attempt to buy $100 worth of BTC with your fake USD. If you don't see a congratulations message, check out the web UI and see if your purchase went through!
 
 ## Unit testing
 

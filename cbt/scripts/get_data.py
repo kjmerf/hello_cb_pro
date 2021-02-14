@@ -7,11 +7,7 @@ import sys
 
 import requests
 
-# there's probably a better way to do this
-sys.path.append(f"{os.getcwd()}/src/app")
-
-import public  # noqa
-
+import cbt.app.public as public
 
 if __name__ == "__main__":
 
