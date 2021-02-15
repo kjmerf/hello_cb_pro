@@ -1,7 +1,8 @@
 
 Next steps:
-  - Methods for different buy types
-    - Or a more general-purpose approach. Maybe both
+  - `AuthorizedAgent` class
+    - Implement other orders
+    - Wrapper methods for common tasks...
   - Stub out more parts of the API
     - There's already a Python SDK for this but I think we'd benefit from basically writing our own, since we don't need to expose it publicly and we're still so much in the learning stage.
 
