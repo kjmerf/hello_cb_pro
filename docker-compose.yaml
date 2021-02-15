@@ -40,3 +40,27 @@ services:
     command:
       - python
       - /app/ws.py
+
+  buy_btc:
+    build: ./src
+    environment:
+      - CB_API_KEY
+      - CB_API_SECRET
+      - CB_PASSPHRASE
+      - CB_REST_URL=https://api-public.sandbox.pro.coinbase.com
+      - USD_BUY=$USD_BUY
+    command:
+      - python
+      - /app/buy_btc.py
+
+  sell_btc:
+    build: ./src
+    environment:
+      - CB_API_KEY
+      - CB_API_SECRET
+      - CB_PASSPHRASE
+      - CB_REST_URL=https://api-public.sandbox.pro.coinbase.com
+      - USD_SELL=$USD_SELL
+    command:
+      - python
+      - /app/sell_btc.py

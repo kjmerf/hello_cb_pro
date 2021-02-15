@@ -55,16 +55,16 @@ import pandas as pd
 df = pd.read_json("/tmp/cb_pro.json", lines=True)
 ```
 
-## Buying (fake) BTC
+## Buying and selling (fake) BTC
 
-To see if you can translate your fake USD to fake BTC from the command line, try the `buy_btc` script. **Note**: Make sure your .env file has the following value set: `CB_REST_URL=https://api-public.sandbox.pro.coinbase.com`
+To see if you can translate your fake USD to fake BTC from the command line, try the `buy_btc` service
 ```shell
-# install the requirements in a virtual environment
-pip install -r scripts/requirements.txt
-# run the script
-python scripts/buy_btc.py --usd=100
+docker-compose build buy_btc
+docker-compose build sell_btc
+# note the syntax
+USD_BUY=1000 docker-compose run buy_btc
+USD_SELL=100 docker-compose run sell_btc
 ```
-This will attempt to buy $100 worth of BTC with your fake USD. If you don't see a congratulations message, check out the web UI and see if your purchase went through!
 
 ## Unit testing
 
