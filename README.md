@@ -39,7 +39,7 @@ If you want to download historical data into a local file, you can use the ```ge
 
 ```shell
 # install the requirements in a virtual environment
-pip install -r scripts/get_data_requirements.txt
+pip install -r scripts/requirements.txt
 # run the script
 python scripts/get_data.py --lookback 200 --granularity 3600 --product_id BTC-USD --output_file /tmp/cb_pro.json
 ```
@@ -53,6 +53,17 @@ To read the file into a dataframe, you can use:
 ```python
 import pandas as pd
 df = pd.read_json("/tmp/cb_pro.json", lines=True)
+```
+
+## Buying and selling (fake) BTC
+
+To see if you can translate your fake USD to fake BTC from the command line, try the `buy_btc` service
+```shell
+docker-compose build buy_btc
+docker-compose build sell_btc
+# note the syntax
+USD_BUY=1000 docker-compose run buy_btc
+USD_SELL=100 docker-compose run sell_btc
 ```
 
 ## Unit testing
