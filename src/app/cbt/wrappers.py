@@ -23,4 +23,4 @@ def market_buy_btc(auth, funds, product="BTC-USD"):
     elif resp.status_code == 200:
         print(f"The buy order was submitted! Here is your receipt: {resp.json()}")
     else:
-        print(resp.error)
+        print(resp.text)
