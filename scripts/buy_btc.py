@@ -8,8 +8,9 @@ import sys
 import requests
 
 sys.path.append(f"{os.getcwd()}/src/app")
-
 import private
+
+from cbt.wrappers import market_buy_btc
 
 
 if __name__ == "__main__":
@@ -22,5 +23,5 @@ if __name__ == "__main__":
     api_secret = os.getenv("CB_API_SECRET")
     passphrase = os.getenv("CB_PASSPHRASE")
 
-    auth = CoinbaseExchangeAuth(api_key, api_secret, passphrase)
+    auth = private.CoinbaseExchangeAuth(api_key, api_secret, passphrase)
     market_buy_btc(auth, args.usd)

@@ -41,7 +41,7 @@ If you want to download historical data into a local file, you can use the ```ge
 # install the requirements in a virtual environment
 pip install -r requirements.txt
 # run the script
-python -m cbt.scripts.get_data --lookback 200 --granularity 3600 --product_id BTC-USD --output_file /tmp/cb_pro.json
+python scripts/get_data.py --lookback 200 --granularity 3600 --product_id BTC-USD --output_file /tmp/cb_pro.json
 ```
 
 With those arguments, you'll get 200 days worth of data at the hourly level, for the BTC-USD product.
@@ -62,7 +62,7 @@ To see if you can translate your fake USD to fake BTC from the command line, try
 # install the requirements in a virtual environment
 pip install -r requirements.txt
 # run the script
-python -m cbt.scripts.buy_btc --usd=100
+python scripts/buy_btc.py --usd=100
 ```
 This will attempt to buy $100 worth of BTC with your fake USD. If you don't see a congratulations message, check out the web UI and see if your purchase went through!
 

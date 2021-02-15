@@ -8,6 +8,8 @@ import time
 from requests.auth import AuthBase
 import requests
 
+from cbt.wrappers import market_buy_btc
+
 # https://docs.pro.coinbase.com/#private
 
 
@@ -20,7 +22,12 @@ class CoinbaseExchangeAuth(AuthBase):
     def __call__(self, request):
         timestamp = str(time.time())
         message = "".join(
-            [timestamp, request.method, request.path_url, (request.body or b"")]
+            [
+                timestamp,
+                request.method,
+                request.path_url,
+                (request.body or b"".decode()),
+            ]
         )
         hmac_key = base64.b64decode(self.api_secret)
         signature = hmac.new(hmac_key, message.encode(), hashlib.sha256)
