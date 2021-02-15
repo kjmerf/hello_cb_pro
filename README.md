@@ -39,7 +39,7 @@ If you want to download historical data into a local file, you can use the ```ge
 
 ```shell
 # install the requirements in a virtual environment
-pip install -r requirements.txt
+pip install -r scripts/requirements.txt
 # run the script
 python scripts/get_data.py --lookback 200 --granularity 3600 --product_id BTC-USD --output_file /tmp/cb_pro.json
 ```
@@ -60,7 +60,7 @@ df = pd.read_json("/tmp/cb_pro.json", lines=True)
 To see if you can translate your fake USD to fake BTC from the command line, try the `buy_btc` script. **Note**: Make sure your .env file has the following value set: `CB_REST_URL=https://api-public.sandbox.pro.coinbase.com`
 ```shell
 # install the requirements in a virtual environment
-pip install -r requirements.txt
+pip install -r scripts/requirements.txt
 # run the script
 python scripts/buy_btc.py --usd=100
 ```
