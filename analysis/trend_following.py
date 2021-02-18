@@ -120,11 +120,11 @@ def getMeanTrend(dates, close, lookback):
             df1 = close.loc[dt0:dt1]
             df0.loc[dt0] = getTvalue(df1.values)
         mean_trend = df0.mean()
-        if mean_trend > 0 and mean_trend < 10: 
+        if mean_trend > 0 and mean_trend < 10: #TREND IS YOUR FRIEND
             signal = 1
-        elif mean_trend >= 10: 
+        elif mean_trend >= 10: #TOO FAR, TOO FAST
             signal = 0
-        elif mean_trend <-2 and mean_trend > -8:
+        elif mean_trend <-2 and mean_trend > -8: # GTFO
             signal = 0
         elif mean_trend <= -8: # BTFD
             signal = 1 
