@@ -49,6 +49,7 @@ services:
       - CB_PASSPHRASE
       - CB_REST_URL=https://api-public.sandbox.pro.coinbase.com
       - USD_BUY=$USD_BUY
+      - MAX_REQUESTS=3
     command:
       - python
       - /app/buy_btc.py
@@ -61,6 +62,7 @@ services:
       - CB_PASSPHRASE
       - CB_REST_URL=https://api-public.sandbox.pro.coinbase.com
       - USD_SELL=$USD_SELL
+      - MAX_REQUESTS=5
     command:
       - python
       - /app/sell_btc.py
