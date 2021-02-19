@@ -9,6 +9,8 @@ df$hour <- hour(ymd_hms(df$iso_time))
 df$date <- date(ymd_hms(df$iso_time))
 
 daily <- df %>% filter(hour == 17)
+write.csv(daily, "/tmp/daily-bitcoin.csv", row.names=FALSE)
+
 plot(close ~ date, data = daily)
 T <- nrow(daily)
 
