@@ -1,4 +1,3 @@
-import requests
 from pprint import pprint
 
 from cbt.auth import get_new_private_connection

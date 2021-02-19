@@ -1,5 +1,4 @@
 import os
-import requests
 
 from cbt.private_client import PrivateClient
 from cbt.auth import get_new_private_connection

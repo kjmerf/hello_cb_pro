@@ -21,16 +21,13 @@ Then create an API key associated with the account and set the following environ
 
 ```shell
 # build and run the private service
-docker-compose build private
-docker-compose run private
+docker-compose up --build --remove-orphans private
 
 # build and run the public service
-docker-compose build public
-docker-compose run public
+docker-compose up --build --remove-orphans public
 
 # build and run the ws service
-docker-compose build ws
-docker-compose run ws
+docker-compose up --build --remove-orphans ws
 ```
 
 ## Getting data
@@ -59,11 +56,9 @@ df = pd.read_json("/tmp/cb_pro.json", lines=True)
 
 To see if you can translate your fake USD to fake BTC from the command line, try the `buy_btc` service
 ```shell
-docker-compose build buy_btc
-docker-compose build sell_btc
 # note the syntax
-USD_BUY=1000 docker-compose run buy_btc
-USD_SELL=100 docker-compose run sell_btc
+USD_BUY=1000 docker-compose up --build --remove-orphans buy_btc
+USD_SELL=100 docker-compose up --build --remove-orphans sell_btc
 ```
 
 ## Unit testing

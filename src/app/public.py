@@ -3,7 +3,11 @@ from datetime import datetime
 from datetime import timedelta
 import os
 
-import requests
+# we can ignore this import when unit testing
+try:
+    import requests
+except ModuleNotFoundError:
+    pass
 
 # https://docs.pro.coinbase.com/#get-historic-rates
 
