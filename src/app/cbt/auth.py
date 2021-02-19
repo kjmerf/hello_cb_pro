@@ -1,4 +1,3 @@
-from pprint import pprint
 import base64
 import hashlib
 import hmac
@@ -6,7 +5,6 @@ import os
 import time
 
 from requests.auth import AuthBase
-import requests
 
 
 class CoinbaseExchangeAuth(AuthBase):

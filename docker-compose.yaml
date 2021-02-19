@@ -66,3 +66,18 @@ services:
     command:
       - python
       - /app/sell_btc.py
+
+  load_candles:
+    build: ./src
+    environment:
+      - PG_HOST
+      - PG_DATABASE
+      - PG_USER
+      - PG_PASSWORD
+      - CB_REST_URL=https://api-public.sandbox.pro.coinbase.com
+      - LOOKBACK=10
+      - PRODUCT_ID=BTC-USD
+      - GRANULARITY=86400
+    command:
+      - python
+      - /app/load_candles.py

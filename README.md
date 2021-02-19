@@ -61,6 +61,15 @@ USD_BUY=1000 docker-compose up --build --remove-orphans buy_btc
 USD_SELL=100 docker-compose up --build --remove-orphans sell_btc
 ```
 
+## Loading data to the database
+
+We have a postgres database setup. To load data to the database, you need to setup the following environment variables:
+```PG_HOST```, ```PG_DATABASE```, ```PG_USER``` and ```PG_PASSWORD```.
+Then you can run:
+```shell
+docker-compose up --build --remove-orphans load_candles
+````
+
 ## Unit testing
 
 We only have a couple tests at this point.
