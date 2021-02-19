@@ -53,4 +53,4 @@ plt.plot(my_fit.filtered_state[0, :])
 plt.show()
 
 # This is the drift term
-plt.plot(my_fit.filtered_state[1, :])
+plt.plot(my_fit.smoothed_state[1, :])
