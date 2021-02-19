@@ -63,7 +63,7 @@ USD_SELL=100 docker-compose up --build --remove-orphans sell_btc
 
 ## Loading data to the database
 
-We have a postgres database setup. To load data to the database, you need to setup the following environment variables:
+We have a postgres database setup. To load data into the database, you need to setup the following environment variables:
 ```PG_HOST```, ```PG_DATABASE```, ```PG_USER``` and ```PG_PASSWORD```.
 Then you can run:
 ```shell
