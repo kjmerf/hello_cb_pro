@@ -30,4 +30,5 @@ from (
 	from landing.candles
 	) l
 left join ods.candles o on l.product_id = o.product_id and l.time = o.time
-where o.product_id is null and l.rn = 1;
+where o.product_id is null
+  and l.rn = 1;
