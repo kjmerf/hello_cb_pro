@@ -16,7 +16,6 @@ where l.product_id = o.product_id
   and l.rn = 1;
 
 insert into ods.candles
-
 select l.product_id
   , l.time
   , l.low
