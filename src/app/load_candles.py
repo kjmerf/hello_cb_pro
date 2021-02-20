@@ -23,10 +23,6 @@ if __name__ == "__main__":
     password = os.getenv("PG_PASSWORD")
     port = int(os.getenv("PG_PORT", 25060))
 
-    conn = psycopg2.connect(
-        host=host, database=database, user=user, password=password, port=port
-    )
-
     now = datetime.utcnow()
     data_file_name = f"/tmp/candles_{int(now.timestamp())}.csv"
     with open(data_file_name, "w") as f:
@@ -47,6 +43,10 @@ if __name__ == "__main__":
 
             # sleeping to avoid hitting the rate limit
             sleep(0.1)
+
+    conn = psycopg2.connect(
+        host=host, database=database, user=user, password=password, port=port
+    )
 
     logging.info("Creating database objects...")
     with open("/app/sql/create_objects.sql") as f:
