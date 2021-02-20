@@ -5,10 +5,15 @@ set low = l.low
   , close = l.close
   , volume = l.volume
   , created_time = l.created_time
-from landing.candles l
+from (
+	select *
+		, row_number() over (partition by product_id, time order by created_time desc) as rn
+	from landing.candles
+	) l
 where l.product_id = o.product_id
   and l.time = o.time
-  and l.created_time > o.created_time;
+  and l.created_time > o.created_time
+  and l.rn = 1;
 
 insert into ods.candles
 
