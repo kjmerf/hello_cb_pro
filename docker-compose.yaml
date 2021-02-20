@@ -18,6 +18,7 @@ services:
       - CB_PASSPHRASE
       - CB_REST_URL=https://api-public.sandbox.pro.coinbase.com
       - REQUEST_SUFFIX=accounts
+      - MAX_REQUESTS=5
     command:
       - python
       - /app/private.py
