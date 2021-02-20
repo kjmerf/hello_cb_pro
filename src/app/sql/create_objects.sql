@@ -23,3 +23,13 @@ create table if not exists ods.candles
   created_time int
 );
 create unique index if not exists ods_candles_idx on ods.candles(product_id, time);
+
+create table if not exists ods.balances
+(
+  profile_id char(36),
+  as_of_time int,
+  available numeric,
+  balance numeric,
+  currency char(3),
+  created_time int
+);

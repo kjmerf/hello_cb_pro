@@ -1,7 +1,7 @@
 import json
+import logging
 import os
 import requests
-
 
 rest_url = os.getenv("CB_REST_URL")
 max_requests = int(os.getenv("MAX_REQUESTS"))
@@ -15,6 +15,16 @@ def cb_post(url, data, auth):
         headers={"content-type": "application/json"},
     )
 
+def get_accounts(auth):
+    resp = requests.get(f"{rest_url}/accounts", auth=auth)
+    if resp.status_code == 200:
+        valid_accounts = []
+        for account in resp.json():
+            if float(account['available']) > 0:
+                valid_accounts.append(account)
+        return valid_accounts
+    else: 
+        logging.error(f"GET failed: {resp.text}")
 
 def market_order_btc(side, auth, funds, order_id, product="BTC-USD"):
     payload = {
@@ -27,52 +37,50 @@ def market_order_btc(side, auth, funds, order_id, product="BTC-USD"):
     resp = cb_post(f"{rest_url}/orders", payload, auth)
 
     if "Insufficient funds" in resp.text:
-        print_insufficient_funds(side)
+        log_insufficient_funds(side)
     elif resp.status_code == 200:
         # make sure the order went through
-        print(
-            f"The market {side} order was submitted!"
-        )  # Here is your receipt: {resp.json()}")
+        logging.info(f"The market {side} order was submitted!")
 
         order = requests.get(f"{rest_url}/orders/client:{order_id}", auth=auth)
         if order.status_code == 200:
             order_status = order.json()
             for i in range(max_requests):
                 if order_status["settled"]:
-                    print_order_settled(side, order_status)
+                    log_order_settled(side, order_status)
                     return
                 else:
-                    print("Waiting for order to be fulfilled...")
+                    logging.info("Waiting for order to be fulfilled...")
                     order = requests.get(
                         f"{rest_url}/orders/client:{order_id}", auth=auth
                     )
                     order_status = order.json()
-            print(f"Order was not fulfilled within {max_requests + 1} requests")
+            logging.error(f"Order was not fulfilled within {max_requests + 1} requests")
         else:
-            print(f"GET failed: {order.text}")
+            logging.error(f"GET failed: {order.text}")
 
     else:
-        print(f"POST failed: {resp.text}")
+        logging.error(f"POST failed: {resp.text}")
 
 
-def print_insufficient_funds(side):
+def log_insufficient_funds(side):
     if side == "buy":
-        print(
+        logging.warning(
             "The API call succeeded but you have insufficient funds! You just need to deposit some fake money in your CB sandbox account."
         )
     else:
-        print(
+        logging.warning(
             "The API call succeeded but you have insufficient BTC! You just need to buy some BTC with your CB sandbox account."
         )
 
 
-def print_order_settled(side, order_status):
-    print(f"Your market {side} was successful!")
+def log_order_settled(side, order_status):
+    logging.info(f"Your market {side} was successful!")
     if side == "buy":
-        print(
+        logging.info(
             f"You paid ${float(order_status['specified_funds']):.2f}, which bought {order_status['filled_size']} BTC and paid ${float(order_status['fill_fees']):.2f} in fees"
         )
     else:
-        print(
+        logging.info(
             f"You sold {order_status['filled_size']} BTC for ${float(order_status['specified_funds']):.2f} and paid ${float(order_status['fill_fees']):.2f} in fees"
         )

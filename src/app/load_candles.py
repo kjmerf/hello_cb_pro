@@ -1,5 +1,5 @@
 import csv
-from datetime import datetime
+from datetime import datetime, timezone
 import logging
 import os
 from time import sleep
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     slack_bot_token = os.getenv("SLACK_BOT_TOKEN")
     slack_channel = os.getenv("SLACK_CHANNEL")
 
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     data_file_name = f"/tmp/candles_{int(now.timestamp())}.csv"
     with open(data_file_name, "w") as f:
         writer = csv.writer(f, delimiter="|")
