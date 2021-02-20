@@ -6,10 +6,15 @@ Before getting started check out: https://docs.pro.coinbase.com.
 
 # Overview
 
-There are three services that can be run: private, public, and ws (websocket).
+There are six services that can be run.
+Three of them simply get and print data: private, public, and ws (websocket).
 The private service makes an authenticated call to the Sandbox API to retreive account information.
 The public service makes an unathenticated call to the Sandbox API to get historical price data.
 The ws service makes an unathenticated connection to the Sandbox Websocket to subscribe to real-time market data.
+If you're new to the project, it's worth checking these out before moving on to the others.
+
+The other services allow you to buy and sell BTC, and load data to the project database.
+See below for more details.
 
 ## Setup
 
@@ -61,10 +66,11 @@ USD_BUY=1000 docker-compose up --build --remove-orphans buy_btc
 USD_SELL=100 docker-compose up --build --remove-orphans sell_btc
 ```
 
-## Loading data to the database
+## Loading data
 
-We have a postgres database setup. To load data into the database, you need to setup the following environment variables:
-```PG_HOST```, ```PG_DATABASE```, ```PG_USER``` and ```PG_PASSWORD```.
+We created a postgres database for the project.
+To load data into the database, you need to setup the following environment variables:
+```PG_HOST```, ```PG_DATABASE```, ```PG_USER```, ```PG_PASSWORD```, ```SLACK_BOT_TOKEN```, and ```SLACK_CHANNEL```.
 Then you can run:
 ```shell
 docker-compose up --build --remove-orphans load_candles

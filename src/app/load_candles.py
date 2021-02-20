@@ -22,6 +22,8 @@ if __name__ == "__main__":
     user = os.getenv("PG_USER")
     password = os.getenv("PG_PASSWORD")
     port = int(os.getenv("PG_PORT", 25060))
+    slack_bot_token = os.getenv("SLACK_BOT_TOKEN")
+    slack_channel = os.getenv("SLACK_CHANNEL")
 
     now = datetime.utcnow()
     data_file_name = f"/tmp/candles_{int(now.timestamp())}.csv"
@@ -30,7 +32,7 @@ if __name__ == "__main__":
         for start_time, end_time in public.yield_batch(now, lookback, granularity):
             logging.info(f"Getting data for interval {start_time} to {end_time}...")
             response = requests.get(
-                f"https://api-public.sandbox.pro.coinbase.com/products/{product_id}/candles",
+                f"{rest_url}/products/{product_id}/candles",
                 params={
                     "start": start_time.isoformat(),
                     "end": end_time.isoformat(),
@@ -42,7 +44,7 @@ if __name__ == "__main__":
                 writer.writerow([product_id] + row + [int(now.timestamp())])
 
             # sleeping to avoid hitting the rate limit
-            sleep(0.1)
+            sleep(0.2)
 
     conn = psycopg2.connect(
         host=host, database=database, user=user, password=password, port=port
@@ -69,3 +71,22 @@ if __name__ == "__main__":
     # leaving contexts doesn't close the connection
     # https://www.psycopg.org/docs/connection.html
     conn.close()
+
+    message = [
+        ":white_check_mark: Data load complete!",
+        f"*Product ID*: {product_id}",
+        f"*Lookback*: {lookback} days",
+        f"*Granularity*: {granularity} seconds",
+        f"*Target table*: ods.candles",
+    ]
+
+    slack_response = requests.post(
+        "https://slack.com/api/chat.postMessage",
+        data={
+            "token": slack_bot_token,
+            "channel": slack_channel,
+            "text": "\n\t".join(message),
+            "as_user": True,
+        },
+    )
+    logging.info(f"Status code from slack: {slack_response.status_code}")
