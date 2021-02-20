@@ -44,6 +44,8 @@ def load_balances(accounts):
 
     conn.close()
 
+    logging.info("Account balances successfully logged in database")
+
     """
     message = [
         ":white_check_mark: Data load complete!",
