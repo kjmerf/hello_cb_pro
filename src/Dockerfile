@@ -6,6 +6,9 @@ RUN pip install --upgrade pip \
     && pip install -r /tmp/requirements.txt
 
 COPY ./app /app
+COPY entrypoint.sh /home/entrypoint.sh
+
+RUN chmod +x /home/entrypoint.sh
 
 RUN groupadd -r app_user && \
     useradd --no-log-init --create-home -r -g app_user app_user

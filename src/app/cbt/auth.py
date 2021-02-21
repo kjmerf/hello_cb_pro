@@ -1,10 +1,10 @@
 import base64
 import hashlib
 import hmac
-import os
 import time
 
 from requests.auth import AuthBase
+import psycopg2
 
 
 class CoinbaseExchangeAuth(AuthBase):
@@ -39,9 +39,11 @@ class CoinbaseExchangeAuth(AuthBase):
         return request
 
 
-def get_new_private_connection():
-    api_key = os.getenv("CB_API_KEY")
-    api_secret = os.getenv("CB_API_SECRET")
-    passphrase = os.getenv("CB_PASSPHRASE")
-
+def get_cb_auth(api_key, api_secret, passphrase):
     return CoinbaseExchangeAuth(api_key, api_secret, passphrase)
+
+
+def get_pg_conn(host, database, user, password, port=25060):
+    return psycopg2.connect(
+        host=host, database=database, user=user, password=password, port=port
+    )

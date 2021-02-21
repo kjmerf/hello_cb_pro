@@ -1,12 +1,18 @@
+import logging
 import os
 
 from cbt.private_client import PrivateClient
-from cbt.auth import get_new_private_connection
+from cbt.auth import get_cb_auth
+
+logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
 if __name__ == "__main__":
 
-    usd = os.getenv("USD_BUY")
+    api_key = os.getenv("CB_API_KEY")
+    api_secret = os.getenv("CB_API_SECRET")
+    passphrase = os.getenv("CB_PASSPHRASE")
+    usd = os.getenv("USD_BUY", "50")
 
-    auth = get_new_private_connection()
+    auth = get_cb_auth(api_key, api_secret, passphrase)
     client = PrivateClient(auth)
     client.market_buy_btc(usd)

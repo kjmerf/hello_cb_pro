@@ -24,8 +24,8 @@ def on_open(ws):
         "type": "subscribe",
         "channels": [
             {
-                "name": os.getenv("CHANNEL"),
-                "product_ids": [os.getenv("PRODUCT_ID")],
+                "name": os.getenv("CHANNEL", "ticker"),
+                "product_ids": [os.getenv("PRODUCT_ID", "BTC-USD")],
             }
         ],
     }
@@ -34,14 +34,13 @@ def on_open(ws):
 
 if __name__ == "__main__":
 
-    websocket_url = os.getenv("CB_WEBSOCKET_URL")
+    websocket_url = os.getenv(
+        "CB_WEBSOCKET_URL", "wss://ws-feed-public.sandbox.pro.coinbase.com"
+    )
 
     websocket.enableTrace(True)
     ws = websocket.WebSocketApp(
-        websocket_url,
-        on_message=on_message,
-        on_error=on_error,
-        on_close=on_close,
+        websocket_url, on_message=on_message, on_error=on_error, on_close=on_close,
     )
     ws.on_open = on_open
     ws.run_forever()

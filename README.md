@@ -1,41 +1,41 @@
 # hello_cb_pro
 
 This purpose of this repo is to explore the Coinbase Pro Sandbox API.
-The Sandbox API mimics the production one.
-Before getting started check out: https://docs.pro.coinbase.com.
 
 # Overview
 
-There are six services that can be run.
-Three of them simply get and print data: private, public, and ws (websocket).
-The private service makes an authenticated call to the Sandbox API to retreive account information.
-The public service makes an unathenticated call to the Sandbox API to get historical price data.
-The ws service makes an unathenticated connection to the Sandbox Websocket to subscribe to real-time market data.
-If you're new to the project, it's worth checking these out before moving on to the others.
-
-The other services allow you to buy and sell BTC, and load data to the project database.
-See below for more details.
+This repo contains several (docker) services that can be used to interact with the Coinbase Pro Sandbox API.
+The repo also contains ad hoc scripts that can be used to pull data and perform analysis.
 
 ## Setup
 
-To use the private service, you first need to create an account here: https://public.sandbox.pro.coinbase.com. If you have a real Coinbase account, it should automatically link to that, but none of your real assets will be loaded.
+Before getting started, you'll need to create an account here: https://public.sandbox.pro.coinbase.com.
+If you have a real Coinbase account, it should automatically link to that, but none of your real assets will be loaded.
 Then create an API key associated with the account and set the following environment variables accordingly:
 ```CB_API_KEY```, ```CB_API_SECRET``` and ```CB_PASSPHRASE```.
 
-## Running services locally
+In order to run the ```main``` service, you will also need credentials for the project database and for slack.
+Talk to other team members about obtaining those.
+
+## Running services
+
+If you're new and just want to see how the code works, the best place to start is to try the ```buy_btc``` and ```sell_btc``` services.
+You don't need database or slack credentials setup to run these services but you do need to your Coinbase Pro credentials setup as described above.
+To run the service simply run:
 
 ```shell
-# build and run the private service
-docker-compose up --build --remove-orphans private
-
-# build and run the public service
-docker-compose up --build --remove-orphans public
-
-# build and run the ws service
-docker-compose up --build --remove-orphans ws
+USD_BUY=1000 docker-compose up --build --remove-orphans buy_btc
+BTC_SELL=.001 docker-compose up --build --remove-orphans sell_btc
 ```
 
-## Getting data
+You should be able to validate that the transactions went through my checking the UI: https://public.sandbox.pro.coinbase.com.
+
+Once you're comfortable with the buying and selling mechanism, you should be ready to try the ```main``` service.
+For this one, you will need database and slack credentials setup.
+You can run the service easily with ```make main```.
+The service will load data into the database, run the trend following process, and buy or sell fake BTC.
+
+## Getting data from the REST API
 
 If you want to download historical data into a local file, you can use the ```get_data.py``` script.
 
@@ -57,24 +57,16 @@ import pandas as pd
 df = pd.read_json("/tmp/cb_pro.json", lines=True)
 ```
 
-## Buying and selling (fake) BTC
+## Getting data from the Websocket
 
-To see if you can translate your fake USD to fake BTC from the command line, try the `buy_btc` service
+If you want to print real-time data from the websocket, you use use the ```ws.py``` script.
+
 ```shell
-# note the syntax
-USD_BUY=1000 docker-compose up --build --remove-orphans buy_btc
-USD_SELL=100 docker-compose up --build --remove-orphans sell_btc
+# install the requirements in a virtual environment
+pip install -r scripts/requirements.txt
+# run the script
+python scripts/ws.py
 ```
-
-## Loading data
-
-We created a postgres database for the project.
-To load data into the database, you need to setup the following environment variables:
-```PG_HOST```, ```PG_DATABASE```, ```PG_USER```, ```PG_PASSWORD```, ```SLACK_BOT_TOKEN```, and ```SLACK_CHANNEL```.
-Then you can run:
-```shell
-docker-compose up --build --remove-orphans load_candles
-````
 
 ## Unit testing
 

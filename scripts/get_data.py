@@ -22,7 +22,6 @@ if __name__ == "__main__":
     parser.add_argument("--output_file", dest="output_file")
     args = parser.parse_args()
 
-    batch = 1
     with open(args.output_file, "w") as f:
         for start_time, end_time in public.yield_batch(
             datetime.utcnow(), args.lookback, args.granularity
@@ -47,11 +46,9 @@ if __name__ == "__main__":
                 d["close"] = rate[4]
                 d["volume"] = rate[5]
                 d["iso_time"] = datetime.fromtimestamp(rate[0]).isoformat()
-                d["batch"] = batch
                 json.dump(d, f)
                 f.write("\n")
-            batch += 1
             # sleeping to avoid hitting the rate limit
-            sleep(0.1)
+            sleep(0.2)
 
     print(f"Wrote {args.lookback} days of data to {args.output_file}!")
