@@ -2,6 +2,8 @@ import json
 import logging
 import requests
 
+from cbt.utils.transaction import Transaction
+
 
 def cb_post(url, data, auth):
     return requests.post(
@@ -51,8 +53,8 @@ def market_order_btc(url, side, auth, size_or_funds, order_id, product="BTC-USD"
             order_status = order.json()
             for i in range(max_requests):
                 if order_status["settled"]:
-                    message = log_order_settled(side, order_status)
-                    return message
+                    transaction = log_order_settled(side, order_status)
+                    return transaction
                 else:
                     logging.info("Waiting for order to be fulfilled...")
                     order = requests.get(
@@ -82,13 +84,12 @@ def log_order_settled(side, order_status):
     logging.info(f"Your market {side} was successful!")
     filled_size = order_status["filled_size"]
     fill_fees = float(order_status["fill_fees"])
+    
     if side == "buy":
-        specified_funds = float(order_status["specified_funds"])
-        message = f"You paid ${specified_funds:.2f}, which bought {filled_size} BTC and paid ${fill_fees:.2f} in fees"
-        logging.info(message)
-        return message
+        usd = float(order_status["specified_funds"])
     else:
-        executed_value = float(order_status["executed_value"])
-        message = f"You sold {filled_size} BTC for ${executed_value:.2f} and paid ${fill_fees:.2f} in fees"
-        logging.info(message)
-        return message
+        usd = float(order_status["executed_value"]) 
+
+    transaction = Transaction("", side, usd, filled_size, fill_fees)
+    logging.info(transaction)
+    return transaction

@@ -1,9 +1,3 @@
-# SQL:
-
-- Tables
-  - Asset snapshot with dollar amount somehow (pull latest or use our own table?)
-  - Transactions
-
 # Next steps:
 
 - Implement more order types

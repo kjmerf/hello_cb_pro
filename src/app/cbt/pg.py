@@ -28,7 +28,7 @@ def create_database_objects(conn, close_connection=False):
 def load_balances(accounts, conn, close_connection=False):
 
     now = datetime.now(timezone.utc)
-    data_file_name = f"/tmp/accounts_{int(now.timestamp())}.csv"
+    data_file_name = f"/tmp/balances_{int(now.timestamp())}.csv"
 
     with open(data_file_name, "w") as f:
         writer = csv.writer(f, delimiter="|")
@@ -52,6 +52,28 @@ def load_balances(accounts, conn, close_connection=False):
                 curs.copy_from(f, "ods.balances", sep="|")
 
     logging.info("Account balances successfully written to database!")
+
+    if close_connection:
+        logging.info("Closing database connection...")
+        conn.close()
+
+
+def load_transaction(transaction, conn, close_connection=False):
+
+    now = datetime.now(timezone.utc)
+    data_file_name = f"/tmp/transaction_{int(now.timestamp())}.csv"
+
+    with open(data_file_name, "w") as f:
+        writer = csv.writer(f, delimiter="|")
+        writer.writerow(transaction.to_pg_row() + [int(now.timestamp())])
+
+    logging.info("Copying data to ods.transactions...")
+    with open(data_file_name) as f:
+        with conn:
+            with conn.cursor() as curs:
+                curs.copy_from(f, "ods.transactions", sep="|")
+
+    logging.info("Transaction successfully written to database!")
 
     if close_connection:
         logging.info("Closing database connection...")

@@ -33,3 +33,13 @@ create table if not exists ods.balances
   currency char(3),
   created_time int
 );
+
+create table if not exists ods.transactions
+(
+  profile_id char(36),
+  side varchar(4),
+  usd numeric,
+  btc numeric,
+  fee numeric,
+  created_time int
+);

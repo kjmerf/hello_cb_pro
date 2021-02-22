@@ -40,25 +40,29 @@ if __name__ == "__main__":
     elif args.action == "execute":
 
         cb_auth = auth.get_cb_auth(api_key, api_secret, passphrase)
-        client = private_client.PrivateClient(cb_auth)
+        pg_conn = auth.get_pg_conn(host, database, user, password)
+        client = private_client.PrivateClient(cb_auth, pg_conn)
 
         with open("/tmp/decision.json") as f:
             data = json.load(f)
             decision = data["buy_or_sell"]
             amount = data["amount"]
             if decision == "buy":
-                message = client.market_buy_btc(amount)
+                transaction = client.market_buy_btc(amount)
             elif decision == "sell":
-                message = client.market_sell_btc(amount)
+                transaction = client.market_sell_btc(amount)
             else:
                 raise ValueError(f"Expecting buy or sell but got {decision}!")
 
-        if message:
+        if transaction:
+
+            client.record_transaction(transaction, close_connection=True)
+
             slack_message = [
                 ":dog: Action taken in the market!",
                 f"*Decision*: {decision}",
                 f"*Amount*: {amount}",
-                f"*Message*: {message}",
+                f"*Message*: {transaction}",
             ]
         else:
             slack_message = ":red_circle: Something went wrong! Better check the container logs."
