@@ -14,9 +14,9 @@ If you have a real Coinbase account, it should automatically link to that, but n
 Then create an API key associated with the account and set the following environment variables accordingly:
 ```CB_API_KEY```, ```CB_API_SECRET``` and ```CB_PASSPHRASE```.
 
-## Running services
+## Buying and selling crypto
 
-If you're new and just want to see how the code works, the best place to start is to try the ```buy_btc``` and ```sell_btc``` services.
+If you want to buy and sell crypto, you can use the ```buy_btc``` and ```sell_btc``` services.
 You don't need database or slack credentials setup to run these services but you do need to your Coinbase Pro credentials setup as described above.
 To run the service simply run:
 
@@ -26,6 +26,22 @@ BTC_SELL=.001 docker-compose up --build --remove-orphans sell_btc
 ```
 
 You should be able to validate that the transactions went through my checking the UI: https://public.sandbox.pro.coinbase.com.
+
+## Loading historical data to the database
+
+To (batch) load historical data to the database, you can use the ```load_candles``` service:
+
+```shell
+docker-compose up --build --remove-orphans load_candles
+```
+
+## Streaming data to the database
+
+To stream real-time data to the database, you can use the ```load_ticker``` service.
+
+```shell
+docker-compose up --build --remove-orphans load_ticker
+```
 
 ## Getting data from the REST API
 
