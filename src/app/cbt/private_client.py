@@ -39,7 +39,7 @@ class PrivateClient:
             with open(dump, "w") as f:
                 json.dump(accounts, f)
 
-    def record_transaction(self, transaction, close_connection=False):
+    def record_transaction(self, transaction, close_connection=True):
         load_transaction(transaction, self.pg_conn, close_connection)
 
     def market_buy_btc(self, usd):
@@ -55,13 +55,11 @@ class PrivateClient:
     def update_uuid(self):
         self.latest_uuid == str(uuid.uuid4())
 
-    def load_candles(self, close_connection=False):
-        load_candles(self.url_base, self.pg_conn, close_connection=close_connection)
+    def load_candles(self, lookback=1, granularity=60, product_id="BTC-USD", close_connection=True):
+        load_candles(self.url_base, self.pg_conn, lookback, granularity, product_id, close_connection)
 
-    def create_database_objects(self, close_connection=False):
+    def create_database_objects(self, close_connection=True):
         create_database_objects(self.pg_conn, close_connection)
 
-    def extract_candles(self, close_connection=False):
+    def extract_candles(self, close_connection=True):
         extract_candles(self.pg_conn, close_connection)
-
-    

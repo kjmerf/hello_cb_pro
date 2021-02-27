@@ -20,7 +20,7 @@ services:
     command:
       - python
       - /app/sell_btc.py
-  main:
+  load_candles:
     build: ./src
     environment:
       - CB_API_KEY
@@ -33,4 +33,5 @@ services:
       - SLACK_BOT_TOKEN
       - SLACK_CHANNEL
     command:
-      - "/home/entrypoint.sh"
+      - python
+      - /app/load_candles.py

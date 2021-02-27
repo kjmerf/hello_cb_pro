@@ -14,9 +14,6 @@ If you have a real Coinbase account, it should automatically link to that, but n
 Then create an API key associated with the account and set the following environment variables accordingly:
 ```CB_API_KEY```, ```CB_API_SECRET``` and ```CB_PASSPHRASE```.
 
-In order to run the ```main``` service, you will also need credentials for the project database and for slack.
-Talk to other team members about obtaining those.
-
 ## Running services
 
 If you're new and just want to see how the code works, the best place to start is to try the ```buy_btc``` and ```sell_btc``` services.
@@ -29,11 +26,6 @@ BTC_SELL=.001 docker-compose up --build --remove-orphans sell_btc
 ```
 
 You should be able to validate that the transactions went through my checking the UI: https://public.sandbox.pro.coinbase.com.
-
-Once you're comfortable with the buying and selling mechanism, you should be ready to try the ```main``` service.
-For this one, you will need database and slack credentials setup.
-You can run the service easily with ```make main```.
-The service will load data into the database, run the trend following process, and buy or sell fake BTC.
 
 ## Getting data from the REST API
 

@@ -11,7 +11,7 @@ from cbt.utils.date_utils import yield_batch
 # https://www.psycopg.org/docs/connection.html
 
 
-def create_database_objects(conn, close_connection=False):
+def create_database_objects(conn, close_connection=True):
     logging.info("Creating database objects...")
     with open("/app/sql/create_objects.sql") as f:
         with conn:
@@ -25,7 +25,7 @@ def create_database_objects(conn, close_connection=False):
         conn.close()
 
 
-def load_balances(accounts, conn, close_connection=False):
+def load_balances(accounts, conn, close_connection=True):
 
     now = datetime.now(timezone.utc)
     data_file_name = f"/tmp/balances_{int(now.timestamp())}.csv"
@@ -58,7 +58,7 @@ def load_balances(accounts, conn, close_connection=False):
         conn.close()
 
 
-def load_transaction(transaction, conn, close_connection=False):
+def load_transaction(transaction, conn, close_connection=True):
 
     now = datetime.now(timezone.utc)
     data_file_name = f"/tmp/transaction_{int(now.timestamp())}.csv"
@@ -81,7 +81,7 @@ def load_transaction(transaction, conn, close_connection=False):
 
 
 def load_candles(
-    url, conn, lookback=1, granularity=60, product_id="BTC-USD", close_connection=False
+    url, conn, lookback=1, granularity=60, product_id="BTC-USD", close_connection=True
 ):
 
     now = datetime.now(timezone.utc)
@@ -125,7 +125,7 @@ def load_candles(
 
 
 def extract_candles(
-    conn, close_connection=False
+    conn, close_connection=True
 ):
     logging.info("Extracting candles to local file...")
     with open("/tmp/candles.csv", "w") as f:
