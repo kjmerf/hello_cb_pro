@@ -8,7 +8,7 @@ class Transaction:
         self.fee = fee
 
     def to_pg_row(self):
-        return [self.profile_id] + [self.side] + [self.btc] + [self.usd]+ [self.fee]
+        return [self.profile_id] + [self.side] + [self.btc] + [self.usd] + [self.fee]
 
     def __str__(self):
         if self.side == "buy":
