@@ -14,5 +14,5 @@ if __name__ == "__main__":
     btc = os.getenv("BTC_SELL", "0.001")
 
     auth = get_cb_auth(api_key, api_secret, passphrase)
-    client = PrivateClient(auth)
+    client = PrivateClient(cb_auth=auth)
     client.market_sell_btc(btc)

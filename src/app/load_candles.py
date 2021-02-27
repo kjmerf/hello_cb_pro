@@ -1,4 +1,3 @@
-import argparse
 import logging
 import os
 
@@ -9,10 +8,6 @@ logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.INFO)
 
 
 if __name__ == "__main__":
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--action", dest="action")
-    args = parser.parse_args()
 
     host = os.getenv("PG_HOST")
     database = os.getenv("PG_DATABASE")

@@ -35,3 +35,13 @@ services:
     command:
       - python
       - /app/load_candles.py
+  load_ticker:
+    build: ./src
+    environment:
+      - PG_HOST
+      - PG_DATABASE
+      - PG_USER
+      - PG_PASSWORD
+    command:
+      - python
+      - /app/load_ticker.py      

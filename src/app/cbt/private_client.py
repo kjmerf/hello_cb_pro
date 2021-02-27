@@ -10,7 +10,7 @@ class PrivateClient:
     """Client that can be used for interacting with the Coinbase exchange as well as our Postgres instance"""
 
     def __init__(
-        self, cb_auth, pg_conn=None, url_base="https://api-public.sandbox.pro.coinbase.com"
+        self, cb_auth=None, pg_conn=None, url_base="https://api-public.sandbox.pro.coinbase.com"
     ):
         """Constructor
 

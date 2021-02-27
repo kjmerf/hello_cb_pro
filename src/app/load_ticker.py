@@ -4,6 +4,8 @@ import os
 
 import websocket
 
+from cbt import auth, private_client
+
 # https://docs.pro.coinbase.com/#websocket-feed
 
 
@@ -34,13 +36,18 @@ def on_open(ws):
 
 if __name__ == "__main__":
 
-    websocket_url = os.getenv(
-        "CB_WEBSOCKET_URL", "wss://ws-feed.pro.coinbase.com"
-    )
+    host = os.getenv("PG_HOST")
+    database = os.getenv("PG_DATABASE")
+    user = os.getenv("PG_USER")
+    password = os.getenv("PG_PASSWORD")
 
-    websocket.enableTrace(True)
-    ws = websocket.WebSocketApp(
-        websocket_url, on_message=on_message, on_error=on_error, on_close=on_close,
-    )
-    ws.on_open = on_open
-    ws.run_forever()
+    pg_conn = auth.get_pg_conn(host, database, user, password)
+    client = private_client.PrivateClient(pg_conn=pg_conn)
+    client.create_database_objects(True)
+
+    # websocket.enableTrace(True)
+    # ws = websocket.WebSocketApp(
+    #     "wss://ws-feed.pro.coinbase.com", on_message=on_message, on_error=on_error, on_close=on_close,
+    # )
+    # ws.on_open = on_open
+    # ws.run_forever()

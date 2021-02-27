@@ -14,5 +14,5 @@ if __name__ == "__main__":
     usd = os.getenv("USD_BUY", "50")
 
     auth = get_cb_auth(api_key, api_secret, passphrase)
-    client = PrivateClient(auth)
+    client = PrivateClient(cb_auth=auth)
     client.market_buy_btc(usd)

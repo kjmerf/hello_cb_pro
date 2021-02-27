@@ -43,3 +43,17 @@ create table if not exists ods.transactions
   fee numeric,
   created_time int
 );
+
+create table if not exists landing.ticker
+(
+  type char(100),
+  trade_id int,
+  sequence int,
+  time timestamp,
+  product_id char(30),
+  price numeric,
+  side char(30),
+  last_size numeric,
+  best_bid numeric,
+  best_ask numeric
+);
