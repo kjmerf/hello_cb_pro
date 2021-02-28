@@ -23,9 +23,6 @@ services:
   load_candles:
     build: ./src
     environment:
-      - CB_API_KEY
-      - CB_API_SECRET
-      - CB_PASSPHRASE
       - PG_HOST
       - PG_DATABASE
       - PG_USER
@@ -44,4 +41,4 @@ services:
       - PG_PASSWORD
     command:
       - python
-      - /app/load_ticker.py      
+      - /app/load_ticker.py

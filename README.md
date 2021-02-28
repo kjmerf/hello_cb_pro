@@ -1,6 +1,6 @@
 # hello_cb_pro
 
-This purpose of this repo is to explore the Coinbase Pro Sandbox API. 
+This purpose of this repo is to explore the Coinbase Pro Sandbox API.
 
 # Overview
 
