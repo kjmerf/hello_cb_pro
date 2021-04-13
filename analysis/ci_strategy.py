@@ -11,13 +11,14 @@ if __name__ == "__main__":
     database = os.getenv("PG_DATABASE")
     user = os.getenv("PG_USER")
     password = os.getenv("PG_PASSWORD")
-    lookback_days = int(os.getenv("LOOKBACK_DAYS", 10))
+    lookback_days = int(os.getenv("LOOKBACK_DAYS", 30))
 
     conn = psycopg2.connect(
         host=host, database=database, user=user, password=password, port=25060
     )
     curs = conn.cursor()
 
+    print("Getting aggregate data")
     product_info = curs.execute(
         """
         SELECT
@@ -38,6 +39,8 @@ if __name__ == "__main__":
     # Calculate the time range using lookback and enforcing same final timestamp
     range_ts_max = np.min(product_df.max_ts)
     range_ts_min = range_ts_max - timedelta(days=lookback_days)
+
+    print("Getting time series data")
 
     price_info = curs.execute(
         """
@@ -64,6 +67,7 @@ if __name__ == "__main__":
 
     ci_list = []
     for product in product_df.ticker:
+        print(f"Analyzing {product}")
         coin_df = price_df.loc[price_df.ticker == product].copy()
 
         # Snap the time and value at beginning and end of period
@@ -105,6 +109,8 @@ if __name__ == "__main__":
                 "auto_corr": auto_corr,
             }
         )
+
+    print("Evaluating results")
 
     growth_df = pd.DataFrame(ci_list)
     growth_df = growth_df.sort_values(["lower"], ascending=False)
